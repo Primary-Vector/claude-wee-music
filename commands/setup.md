@@ -4,7 +4,7 @@ description: Download the music collection and verify everything is ready
 
 # Wee Music Setup
 
-Run the setup script to download the music collection, verify the audio player, and install hooks.
+Run the setup script to download the music collection and verify the audio player.
 
 ## Step 1: Download Music
 
@@ -31,23 +31,7 @@ If no player is found:
 - **Linux**: Install ffmpeg (`sudo apt install ffmpeg`) or mpg123 (`sudo apt install mpg123`)
 - **Windows** (Git Bash/WSL): Install ffmpeg
 
-## Step 3: Install Hooks
-
-Read the user's global `~/.claude/settings.json` (create it if it doesn't exist). Merge in the following hooks, being careful not to overwrite any existing hooks from other plugins. Replace `<PLUGIN_ROOT>` with the actual absolute path to the plugin directory.
-
-The hooks to add:
-
-- Under `"UserPromptSubmit"`, add a hook with:
-  - `"type": "command"`
-  - `"command": "\"<PLUGIN_ROOT>/wee-music.sh\" start"`
-  - `"async": true`
-
-- Under `"Stop"`, add a hook with:
-  - `"type": "command"`
-  - `"command": "\"<PLUGIN_ROOT>/wee-music.sh\" done"`
-  - `"async": true`
-
-## Step 4: Test
+## Step 3: Test
 
 Do a quick test to make sure music plays:
 
@@ -65,6 +49,6 @@ If the user heard music, setup is complete!
 
 ## Done!
 
-Tell the user setup is complete. Music will play automatically when they send a message (after restarting Claude Code). Remind them of the slash commands:
-- `/wee-music:disable` — stop music and remove hooks
-- `/wee-music:enable` — re-enable hooks
+Tell the user setup is complete. Hooks are installed automatically by the plugin — music will play when they send a message (after restarting Claude Code). Remind them of the slash commands:
+- `/wee-music:disable` — disable the plugin and stop music
+- `/wee-music:enable` — re-enable the plugin

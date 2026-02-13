@@ -4,7 +4,7 @@ description: Disable background music hooks and stop any playing music
 
 # Disable Wee Music
 
-Stop any currently playing music and remove the hooks from settings.
+Stop any currently playing music and disable the plugin.
 
 ## Step 1: Stop Music
 
@@ -16,8 +16,8 @@ Stop any currently playing music:
 
 Replace `<PLUGIN_ROOT>` with the actual plugin directory path (parent of `commands` where this file lives).
 
-## Step 2: Remove Hooks
+## Step 2: Disable Plugin
 
-Edit `~/.claude/settings.json` and remove the `UserPromptSubmit` and `Stop` hook entries that reference `wee-music.sh`. If removing them leaves the hooks object empty, remove the hooks key entirely. Be careful not to remove hooks from other plugins.
+Edit `~/.claude/settings.json` and set `"wee-music@primary-vector-marketplace"` to `false` in the `enabledPlugins` object.
 
-Tell the user music is now disabled. They can re-enable it with `/wee-music:enable`.
+Tell the user music is now disabled. They'll need to restart Claude Code for it to take effect. They can re-enable it with `/wee-music:enable`.

@@ -13,7 +13,7 @@ The hooks config should be:
 ```json
 {
   "hooks": {
-    "PreToolUse": [
+    "UserPromptSubmit": [
       {
         "hooks": [
           {

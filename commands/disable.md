@@ -18,6 +18,6 @@ Replace `<PLUGIN_ROOT>` with the actual plugin directory path (parent of `comman
 
 ## Step 2: Remove Hooks
 
-Edit `.claude/settings.json` and remove the `PreToolUse` and `Stop` hook entries that reference `wee-music.sh`. If removing them leaves the hooks object empty, remove the hooks key entirely. Be careful not to remove hooks from other plugins.
+Edit `.claude/settings.json` and remove the `UserPromptSubmit` and `Stop` hook entries that reference `wee-music.sh`. If removing them leaves the hooks object empty, remove the hooks key entirely. Be careful not to remove hooks from other plugins.
 
 Tell the user music is now disabled. They can re-enable it with `/wee-music:enable`.

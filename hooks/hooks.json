@@ -1,0 +1,27 @@
+{
+  "description": "Background music while Claude works",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/wee-music.sh\" start",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/wee-music.sh\" done",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

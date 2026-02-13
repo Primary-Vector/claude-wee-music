@@ -9,5 +9,6 @@
   "repository": "https://github.com/Primary-Vector/claude-wee-music.git",
   "license": "MIT",
   "keywords": ["music", "audio", "background", "hooks"],
-  "commands": "./commands/"
+  "commands": "./commands/",
+  "hooks": "./hooks/hooks.json"
 }

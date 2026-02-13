@@ -2,13 +2,24 @@
 
 A Claude Code hooks plugin that plays fun randomized background music while Claude is working. When Claude finishes, it plays a short jingle.
 
-## Setup
+## Installation
 
-```bash
-# Download the music collection
-./setup.sh
+First, register the Primary Vector marketplace in Claude Code:
 
-# That's it. The hooks in .claude/settings.json handle the rest.
+```
+/plugin marketplace add primary-vector/claude-marketplace
+```
+
+Then install the plugin:
+
+```
+/plugin install wee-music@primary-vector-marketplace
+```
+
+Finally, run setup to download the music collection:
+
+```
+/wee-music:setup
 ```
 
 ### Requirements
@@ -19,18 +30,18 @@ A Claude Code hooks plugin that plays fun randomized background music while Clau
 
 ## How it works
 
-- **`PreToolUse` hook** starts randomized background music when Claude begins working
-- **`Stop` hook** stops the music and plays a short jingle when Claude finishes
+- Music starts as soon as you send a message to Claude
+- When Claude finishes, the music stops and a short jingle plays
 - Songs are picked randomly from a pool of longer tracks
-- State is tracked via PID files so multiple tool calls don't stack up players
+- Uses an atomic lock to prevent multiple players from stacking up
 
-## Manual usage
+## Commands
 
-```bash
-./wee-music.sh start   # Start background music
-./wee-music.sh stop    # Stop music
-./wee-music.sh done    # Stop music + play the done jingle
-```
+| Command | Description |
+|---------|-------------|
+| `/wee-music:setup` | Download the music collection |
+| `/wee-music:enable` | Enable the background music hooks |
+| `/wee-music:disable` | Disable hooks and stop music |
 
 ## License
 

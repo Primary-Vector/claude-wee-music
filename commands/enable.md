@@ -6,7 +6,7 @@ description: Enable background music hooks
 
 Enable the background music hooks so music plays while Claude works.
 
-Read the current `.claude/settings.json` (create it if it doesn't exist). Merge in the wee-music hooks, being careful not to overwrite any existing hooks from other plugins.
+Read the user's global `~/.claude/settings.json` (create it if it doesn't exist). Merge in the wee-music hooks, being careful not to overwrite any existing hooks from other plugins.
 
 The plugin root directory is the parent of the `commands` directory where this file lives. Use its absolute path in the hook commands.
 

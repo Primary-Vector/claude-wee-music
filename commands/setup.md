@@ -33,7 +33,7 @@ If no player is found:
 
 ## Step 3: Install Hooks
 
-Read the current `.claude/settings.json` (create it if it doesn't exist). Merge in the following hooks, being careful not to overwrite any existing hooks from other plugins. Replace `<PLUGIN_ROOT>` with the actual absolute path to the plugin directory.
+Read the user's global `~/.claude/settings.json` (create it if it doesn't exist). Merge in the following hooks, being careful not to overwrite any existing hooks from other plugins. Replace `<PLUGIN_ROOT>` with the actual absolute path to the plugin directory.
 
 The hooks to add:
 

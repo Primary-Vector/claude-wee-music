@@ -196,6 +196,9 @@ cmd_stop() {
 cmd_done() {
     kill_music
 
+    # Skip jingle if disabled
+    [ -f "$DISABLED_FILE" ] && exit 0
+
     local jingle="$MUSIC_DIR/$DONE_JINGLE"
     if [ -f "$jingle" ]; then
         local player

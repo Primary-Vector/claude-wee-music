@@ -4,8 +4,12 @@ description: Enable background music hooks
 
 # Enable Wee Music
 
-Enable the background music plugin.
+Run the enable command:
 
-Edit `~/.claude/settings.json` and set `"wee-music@primary-vector-marketplace"` to `true` in the `enabledPlugins` object.
+```bash
+<PLUGIN_ROOT>/wee-music.sh enable
+```
 
-Tell the user music is now enabled. They'll need to restart Claude Code for it to take effect.
+Replace `<PLUGIN_ROOT>` with the actual plugin directory path (parent of `commands` where this file lives).
+
+Tell the user music is now enabled. It will start playing next time they send a message.

@@ -15,6 +15,7 @@ MUSIC_DIR="$SCRIPT_DIR/Nintendo Wii Music Collection"
 PID_FILE="/tmp/wee-music-player.pid"
 LOOP_PID_FILE="/tmp/wee-music-loop.pid"
 LOCK_DIR="/tmp/wee-music-lock"
+DISABLED_FILE="$SCRIPT_DIR/.disabled"
 
 # Long songs (>60s) for background music
 LONG_SONGS=(
@@ -148,6 +149,9 @@ music_loop() {
 # --- Commands ---
 
 cmd_start() {
+    # Skip if disabled
+    [ -f "$DISABLED_FILE" ] && exit 0
+
     if ! [ -d "$MUSIC_DIR" ]; then
         echo "Music directory not found. Run setup.sh first." >&2
         exit 1
@@ -202,12 +206,25 @@ cmd_done() {
 
 # --- Main ---
 
+cmd_enable() {
+    rm -f "$DISABLED_FILE"
+    echo "Wee Music enabled."
+}
+
+cmd_disable() {
+    kill_music
+    touch "$DISABLED_FILE"
+    echo "Wee Music disabled."
+}
+
 case "${1:-}" in
-    start) cmd_start ;;
-    stop)  cmd_stop ;;
-    done)  cmd_done ;;
+    start)   cmd_start ;;
+    stop)    cmd_stop ;;
+    done)    cmd_done ;;
+    enable)  cmd_enable ;;
+    disable) cmd_disable ;;
     *)
-        echo "Usage: wee-music.sh {start|stop|done}" >&2
+        echo "Usage: wee-music.sh {start|stop|done|enable|disable}" >&2
         exit 1
         ;;
 esac

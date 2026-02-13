@@ -4,7 +4,7 @@ description: Download the music collection and verify everything is ready
 
 # Wee Music Setup
 
-Run the setup script to download the music collection and verify the audio player is available.
+Run the setup script to download the music collection, verify the audio player, and install hooks.
 
 ## Step 1: Download Music
 
@@ -31,7 +31,23 @@ If no player is found:
 - **Linux**: Install ffmpeg (`sudo apt install ffmpeg`) or mpg123 (`sudo apt install mpg123`)
 - **Windows** (Git Bash/WSL): Install ffmpeg
 
-## Step 3: Test
+## Step 3: Install Hooks
+
+Read the current `.claude/settings.json` (create it if it doesn't exist). Merge in the following hooks, being careful not to overwrite any existing hooks from other plugins. Replace `<PLUGIN_ROOT>` with the actual absolute path to the plugin directory.
+
+The hooks to add:
+
+- Under `"UserPromptSubmit"`, add a hook with:
+  - `"type": "command"`
+  - `"command": "\"<PLUGIN_ROOT>/wee-music.sh\" start"`
+  - `"async": true`
+
+- Under `"Stop"`, add a hook with:
+  - `"type": "command"`
+  - `"command": "\"<PLUGIN_ROOT>/wee-music.sh\" done"`
+  - `"async": true`
+
+## Step 4: Test
 
 Do a quick test to make sure music plays:
 
@@ -49,7 +65,6 @@ If the user heard music, setup is complete!
 
 ## Done!
 
-Tell the user setup is complete. The hooks are already configured — music will play automatically next time Claude starts working. Remind them they can manually control it with:
-- `wee-music.sh start` — Start background music
-- `wee-music.sh stop` — Stop music
-- `wee-music.sh done` — Stop music + play the done jingle
+Tell the user setup is complete. Music will play automatically when they send a message (after restarting Claude Code). Remind them of the slash commands:
+- `/wee-music:disable` — stop music and remove hooks
+- `/wee-music:enable` — re-enable hooks

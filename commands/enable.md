@@ -6,41 +6,24 @@ description: Enable background music hooks
 
 Enable the background music hooks so music plays while Claude works.
 
-Update the project's `.claude/settings.json` to add the hooks. Use the plugin root directory path (parent of `commands` where this file lives).
+Read the current `.claude/settings.json` (create it if it doesn't exist). Merge in the wee-music hooks, being careful not to overwrite any existing hooks from other plugins.
 
-The hooks config should be:
+The plugin root directory is the parent of the `commands` directory where this file lives. Use its absolute path in the hook commands.
 
-```json
-{
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"<PLUGIN_ROOT>/wee-music.sh\" start",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"<PLUGIN_ROOT>/wee-music.sh\" done",
-            "async": true
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+The hooks to add:
 
-Replace `<PLUGIN_ROOT>` with the actual plugin directory path.
+- Under `"UserPromptSubmit"`, add a hook with:
+  - `"type": "command"`
+  - `"command": "\"<PLUGIN_ROOT>/wee-music.sh\" start"`
+  - `"async": true`
 
-If `.claude/settings.json` already exists, merge the hooks into it (don't overwrite other settings). If the hooks are already present, just tell the user music is already enabled.
+- Under `"Stop"`, add a hook with:
+  - `"type": "command"`
+  - `"command": "\"<PLUGIN_ROOT>/wee-music.sh\" done"`
+  - `"async": true`
 
-Tell the user music is now enabled and will play next time Claude starts working.
+Replace `<PLUGIN_ROOT>` with the actual absolute path to the plugin directory.
+
+If the hooks are already present, just tell the user music is already enabled.
+
+Tell the user music is now enabled and will play next time they send a message (after restarting Claude Code).

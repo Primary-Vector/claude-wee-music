@@ -14,6 +14,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MUSIC_DIR="$SCRIPT_DIR/Nintendo Wii Music Collection"
 PID_FILE="/tmp/wee-music-player.pid"
 LOOP_PID_FILE="/tmp/wee-music-loop.pid"
+LOCK_DIR="/tmp/wee-music-lock"
 
 # Long songs (>60s) for background music
 LONG_SONGS=(
@@ -109,6 +110,7 @@ kill_music() {
     [ -n "$player_pid" ] && kill "$player_pid" 2>/dev/null
 
     rm -f "$LOOP_PID_FILE" "$PID_FILE"
+    rmdir "$LOCK_DIR" 2>/dev/null
 }
 
 # --- Music loop (runs in background) ---
@@ -155,10 +157,22 @@ cmd_start() {
         exit 0
     fi
 
+    # Atomic lock — mkdir fails if it already exists, preventing races
+    if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+        exit 0
+    fi
+
+    # Double-check after acquiring lock (another process may have started between is_playing and lock)
+    if is_playing; then
+        rmdir "$LOCK_DIR" 2>/dev/null
+        exit 0
+    fi
+
     local player
     player="$(find_player)"
     if [ -z "$player" ]; then
         echo "No audio player found. Install ffmpeg or mpg123." >&2
+        rmdir "$LOCK_DIR" 2>/dev/null
         exit 1
     fi
 
@@ -167,6 +181,8 @@ cmd_start() {
     local loop_pid=$!
     echo "$loop_pid" > "$LOOP_PID_FILE"
     disown "$loop_pid" 2>/dev/null
+
+    rmdir "$LOCK_DIR" 2>/dev/null
 }
 
 cmd_stop() {

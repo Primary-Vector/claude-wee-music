@@ -1,0 +1,13 @@
+{
+  "name": "wee-music",
+  "description": "Background music plugin for Claude Code - plays tunes while Claude works",
+  "version": "1.0.0",
+  "author": {
+    "name": "Primary Vector"
+  },
+  "homepage": "https://github.com/Primary-Vector/claude-wee-music",
+  "repository": "https://github.com/Primary-Vector/claude-wee-music.git",
+  "license": "MIT",
+  "keywords": ["music", "audio", "background", "hooks"],
+  "commands": "./commands/"
+}
